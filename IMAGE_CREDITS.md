@@ -52,7 +52,7 @@ The following local photographs were supplied for this project. Their presence i
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 The Hero fills the viewport using a proportional CSS cover crop with breakpoint-specific object-position and local dark overlays. No edge mask is applied; the stored original is unchanged.
 
@@ -62,7 +62,7 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ### Drives That Defined — opening visual
 
@@ -71,7 +71,7 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crop, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crop, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 - File format: supplied with a `.jpg` filename; its original contents are WebP (1000 × 667 pixels), preserved unchanged.
 
 ### Barcelona 2016
@@ -80,7 +80,7 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ### Zandvoort 2021
 
@@ -88,16 +88,18 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ### Spa-Francorchamps 2022
 
-- Local file: `public/images/on-track/spafrancorchamps2022.jpg`
+- Local file: `public/images/on-track/spa-francorchamps-2022.jpg`
+- Status: **replaced on 5 October 2026.** The earlier image in this slot carried a visible “Verstappen.com, Red Bull Content Pool” copyright mark and was removed from the project for that reason.
+- Current file: 1200 × 800 JPEG, supplied locally. No credit or watermark is visible in the image.
+- The replacement is stored under a new filename (previously `spafrancorchamps2022.jpg`) so that no image cache can keep serving the removed picture.
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
-- License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
-- Evidence: visible copyright mark “Verstappen.com, Red Bull Content Pool”. This is not evidence of permission or a confirmed photographer/license.
+- License: **source/license pending confirmation**. Not cleared for publication — confirm the origin or replace it again before publishing. The absence of a watermark is not evidence of permission.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ### Interlagos 2024
 
@@ -105,7 +107,7 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crops, container overlays and parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ### Beyond Formula 1 — sim racing
 
@@ -115,7 +117,7 @@ The Hero fills the viewport using a proportional CSS cover crop with breakpoint-
 - Author / photographer: pending confirmation.
 - Source: local file supplied for this project; original source URL pending confirmation.
 - License: **source/license pending confirmation**. Not cleared for publication.
-- Changes: Original preserved; responsive CSS `object-fit: cover` crop with `object-position: 50% 24%`, subtle navy overlay, bottom gradient and existing container parallax. Next.js generates resized/compressed delivery variants. No retouching of the original.
+- Changes: Original preserved; responsive CSS `object-fit: cover` crop with `object-position: 50% 24%`, subtle navy overlay, bottom gradient and existing container parallax. Next.js generates resized/compressed delivery variants. No retouching of the original. A CSS-only editorial grade is applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain); no watermark or credit has been removed.
 
 ## Original artwork and website
 

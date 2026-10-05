@@ -15,6 +15,8 @@ export type MediaSlot = {
   /** Path under /public (e.g. "/media/hero.jpg"). Leave undefined to use the art plate. */
   src?: string;
   alt: string;
+  /** Focal point for cover crops, as a CSS `object-position` (e.g. "25% 80%"). */
+  position?: string;
   art: ArtVariant;
   tone: ArtTone;
   seed: number;
@@ -57,8 +59,10 @@ export const media = {
     seed: 21,
   },
   onTrackSpa: {
-    src: "/images/on-track/spafrancorchamps2022.jpg",
-    alt: "Max Verstappen driving at Spa-Francorchamps",
+    src: "/images/on-track/spa-francorchamps-2022.jpg",
+    alt: "A Red Bull Racing car seen from behind, heading towards Eau Rouge at Spa-Francorchamps",
+    // The car sits low and left in the frame; keep it in view on tall crops.
+    position: "24% 82%",
     art: "circuit",
     tone: "bone",
     seed: 22,
