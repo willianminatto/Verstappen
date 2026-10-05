@@ -10,6 +10,7 @@ import { Hero } from "@/sections/Hero";
 import { Legacy } from "@/sections/Legacy";
 import { Numbers } from "@/sections/Numbers";
 import { OnTrack } from "@/sections/OnTrack";
+import { SeasonStatus } from "@/sections/SeasonStatus";
 import { Timeline } from "@/sections/Timeline";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <div id="content">
         <main id="main">
           <Hero />
+          <SeasonStatus />
           <Driver />
           <Timeline />
           <Numbers />
