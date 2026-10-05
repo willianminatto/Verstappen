@@ -8,61 +8,51 @@ export type HelmetConcept = {
   pattern: HelmetPattern;
   /** Shell base, primary accent, secondary detail. */
   palette: { base: string; accent: string; detail: string };
-  /** Optional final image under /public — replaces the drawn concept when set. */
-  src?: string;
+  /** Locally stored original image under /public. */
+  src: string;
+  sourceUrl: string;
 };
 
-/**
- * Abstract design studies created for this concept. They are NOT reproductions
- * of official helmet designs. Replace with licensed imagery via `src` later.
- */
+/** Original Wikimedia Commons helmet images; attribution is also shown on each card. */
 export const helmets: HelmetConcept[] = [
   {
-    id: "oranje",
-    name: "Oranje",
-    note: "Home colours, turned all the way up.",
-    finish: "Gloss",
+    id: "max-2021",
+    name: "2021",
+    note: "First world title.",
+    finish: "2021 season",
     pattern: "bands",
-    palette: { base: "#ff5a00", accent: "#f1eee7", detail: "#0d1830" },
+    palette: { base: "#f1eee7", accent: "#ff5a00", detail: "#c9a45c" },
+    src: "/images/helmets/max-helmet-2021.jpg",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Max_Verstappen_Integralhelm_2021.jpg",
   },
   {
-    id: "night-race",
-    name: "Night Race",
-    note: "Deep blue shell built for floodlights.",
-    finish: "Satin",
-    pattern: "split",
-    palette: { base: "#0d1830", accent: "#ff5a00", detail: "#3b6cff" },
+    id: "max-2022",
+    name: "2022",
+    note: "Back-to-back.",
+    finish: "2022 season",
+    pattern: "bands",
+    palette: { base: "#f1eee7", accent: "#c9a45c", detail: "#ff5a00" },
+    src: "/images/helmets/max-helmet-2022.jpg",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Max_Verstappen_Integralhelm_2022.jpg",
   },
   {
-    id: "white-out",
-    name: "White Out",
-    note: "A clean base with a single racing line.",
-    finish: "Matte",
-    pattern: "rings",
-    palette: { base: "#f1eee7", accent: "#ff5a00", detail: "#0d1830" },
+    id: "max-2023",
+    name: "2023",
+    note: "Three-time world champion.",
+    finish: "2023 season",
+    pattern: "bands",
+    palette: { base: "#f1eee7", accent: "#ef233c", detail: "#0d1830" },
+    src: "/images/helmets/max-helmet-2023.png",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Max_Verstappen_Integralhelm_2023.png",
   },
   {
-    id: "grid",
-    name: "Grid Slot",
-    note: "Start-line geometry wrapped around the shell.",
-    finish: "Gloss",
-    pattern: "checker",
-    palette: { base: "#111317", accent: "#f1eee7", detail: "#ff5a00" },
-  },
-  {
-    id: "number-one",
-    name: "Number One",
-    note: "The champion's numeral of 2022–25 as the whole design.",
-    finish: "Chrome flake",
-    pattern: "numeral",
-    palette: { base: "#c9a45c", accent: "#050608", detail: "#f1eee7" },
-  },
-  {
-    id: "raw",
-    name: "Raw",
-    note: "Exposed weave, nothing else.",
-    finish: "Bare carbon",
-    pattern: "carbon",
-    palette: { base: "#15171c", accent: "#2b2f38", detail: "#ff5a00" },
+    id: "max-2024",
+    name: "2024",
+    note: "Four-time world champion.",
+    finish: "2024 season",
+    pattern: "bands",
+    palette: { base: "#f1eee7", accent: "#3b6cff", detail: "#ef233c" },
+    src: "/images/helmets/max-helmet-2024.png",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Max_Verstappen_Integralhelm_2024.png",
   },
 ];

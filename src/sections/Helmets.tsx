@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
-import { HelmetArt } from "@/components/ui/HelmetArt";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { helmets } from "@/data/helmets";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
@@ -28,6 +27,22 @@ export function Helmets() {
       const counter = el.querySelector<HTMLElement>("[data-counter]");
       const cards = gsap.utils.toArray<HTMLElement>("[data-card]", el);
       if (!track) return;
+
+      const updateCounter = () => {
+        if (!counter) return;
+        const center = window.innerWidth / 2;
+        let nearest = 0;
+        let distance = Infinity;
+        cards.forEach((card, index) => {
+          const bounds = card.getBoundingClientRect();
+          const delta = Math.abs(bounds.left + bounds.width / 2 - center);
+          if (delta < distance) {
+            distance = delta;
+            nearest = index;
+          }
+        });
+        counter.textContent = pad(nearest + 1);
+      };
 
       mm.add(MQ.cine, () => {
         const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
@@ -92,10 +107,7 @@ export function Helmets() {
           const max = viewport.scrollWidth - viewport.clientWidth;
           const progress = max > 0 ? viewport.scrollLeft / max : 0;
           setProgress(Math.max(0.04, progress));
-          if (counter) {
-            const step = Math.min(cards.length, Math.round(progress * (cards.length - 1)) + 1);
-            counter.textContent = pad(step);
-          }
+          updateCounter();
         };
         const onScroll = () => {
           if (!frame) frame = requestAnimationFrame(update);
@@ -118,13 +130,37 @@ export function Helmets() {
     <section
       id="helmets"
       ref={root}
-      aria-labelledby="helmets-title"
-      className="relative z-10 overflow-hidden bg-ink pt-24 pb-16 md:py-36 cine:h-screen cine:py-0"
+      aria-label="Championship helmets — four seasons, four world titles"
+      className="relative z-10 overflow-hidden bg-ink pt-12 pb-8 lg:py-36 cine:h-screen cine:py-0"
     >
+      <div className="mb-6 px-5 md:px-10 cine:hidden">
+        <SectionHeading
+          id="helmets-title-native"
+          index="05"
+          label="Championship Helmets"
+          lines={["Championship", "Helmets"]}
+          titleClassName="text-[clamp(2.5rem,7.2vw,8.5rem)]"
+        />
+        <p className="mt-4 max-w-sm copy text-ash">Four seasons. Four world titles.</p>
+        <p className="mt-4 flex items-center gap-3 label">
+          <span className="hidden cine:inline">Keep scrolling</span>
+          <span className="cine:hidden">Swipe or scroll</span>
+          <svg
+            viewBox="0 0 40 10"
+            fill="none"
+            aria-hidden="true"
+            className="nudge-x h-2.5 w-10 text-orange"
+          >
+            <path d="M0 5h38M34 1l4 4-4 4" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+        </p>
+        <p className="mt-3 hidden caption text-ash cine:block">2021—2024 · Wikimedia Commons</p>
+      </div>
+
       <div
         data-viewport
         role="region"
-        aria-label="Helmet design studies, horizontally scrollable"
+        aria-label="Max Verstappen helmets from 2021 to 2024, horizontally scrollable"
         tabIndex={0}
         className="snap-x snap-mandatory scroll-px-5 [scrollbar-width:none] overflow-x-auto md:scroll-px-10 cine:h-full cine:snap-none cine:overflow-visible [&::-webkit-scrollbar]:hidden"
       >
@@ -132,17 +168,15 @@ export function Helmets() {
           data-track
           className="flex w-max items-stretch gap-4 px-5 md:gap-7 md:px-10 cine:h-full cine:items-center"
         >
-          <div className="flex w-[84vw] shrink-0 snap-start flex-col justify-center sm:w-[60vw] lg:w-[44vw]">
+          <div className="hidden w-[44vw] shrink-0 flex-col justify-center cine:flex">
             <SectionHeading
               id="helmets-title"
               index="05"
-              label="Helmets"
-              lines={["Helmet", "Studies"]}
-              titleClassName="text-[clamp(3.75rem,10vw,11.5rem)]"
+              label="Championship Helmets"
+              lines={["Championship", "Helmets"]}
+              titleClassName="text-[clamp(2.5rem,7.2vw,8.5rem)]"
             />
-            <p className="mt-8 max-w-sm copy text-ash">
-              A helmet is the one surface a driver truly owns. Six abstract studies on that idea.
-            </p>
+            <p className="mt-8 max-w-sm copy text-ash">Four seasons. Four world titles.</p>
             <p className="mt-8 flex items-center gap-3 label">
               <span className="hidden cine:inline">Keep scrolling</span>
               <span className="cine:hidden">Swipe or scroll</span>
@@ -155,7 +189,7 @@ export function Helmets() {
                 <path d="M0 5h38M34 1l4 4-4 4" stroke="currentColor" strokeWidth="1.2" />
               </svg>
             </p>
-            <p className="mt-3 caption text-ash">Concept liveries · not official designs</p>
+            <p className="mt-3 hidden caption text-ash cine:block">2021—2024 · Wikimedia Commons</p>
           </div>
 
           {helmets.map((concept, i) => (
@@ -164,7 +198,7 @@ export function Helmets() {
               data-card
               data-cursor="wide"
               style={{ "--tint": concept.palette.accent } as CSSProperties}
-              className="group relative flex w-[80vw] shrink-0 snap-center flex-col overflow-hidden bg-night p-5 sm:w-[50vw] md:p-7 lg:w-[33vw] cine:h-[min(76vh,46rem)]"
+              className="group relative flex w-[80vw] shrink-0 snap-center flex-col overflow-hidden bg-night p-5 sm:w-[50vw] md:p-6 lg:w-[33vw] lg:p-7 cine:h-[min(76vh,46rem)]"
             >
               {/* studio light, tinted by the livery */}
               <div
@@ -181,27 +215,24 @@ export function Helmets() {
 
               <p className="relative flex justify-between caption text-ash">
                 <span>
-                  Study <span className="text-orange">{pad(i + 1)}</span>
+                  Title <span className="text-orange">{pad(i + 1)}</span>
                 </span>
                 <span>{concept.finish}</span>
               </p>
 
-              <div className="relative flex min-h-0 flex-1 items-center justify-center py-6">
-                <div data-helmet className="relative aspect-[5/4] w-full max-w-[30rem]">
-                  {concept.src ? (
-                    <Image
-                      src={concept.src}
-                      alt={`${concept.name} helmet`}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, 80vw"
-                      className="object-contain"
-                    />
-                  ) : (
-                    <HelmetArt
-                      concept={concept}
-                      className="size-full drop-shadow-[0_2.5rem_2.5rem_rgb(0_0_0/0.55)] transition-transform duration-700 ease-expo group-hover:scale-[1.04]"
-                    />
-                  )}
+              <div className="relative flex min-h-0 flex-1 items-center justify-center py-4 lg:py-6">
+                <div
+                  data-helmet
+                  className="relative aspect-[25/23] w-[80%] max-w-[30rem] bg-bone shadow-[0_1.5rem_2.5rem_rgb(0_0_0/0.4)] lg:w-[88%] cine:max-h-[44vh]"
+                >
+                  <Image
+                    src={concept.src}
+                    alt={`Max Verstappen’s ${concept.name} season helmet, side view`}
+                    fill
+                    loading="lazy"
+                    sizes="(min-width: 1024px) min(30rem, calc(29.04vw - 3.08rem)), (min-width: 768px) calc(40vw - 2.4rem), (min-width: 640px) calc(40vw - 2rem), calc(64vw - 2rem)"
+                    className="object-contain p-2 mix-blend-multiply"
+                  />
                 </div>
               </div>
 
@@ -222,7 +253,30 @@ export function Helmets() {
                     ))}
                   </ul>
                 </div>
-                <p className="mt-2 copy text-ash">{concept.note}</p>
+                <p className="mt-2 wide text-[0.875rem] text-bone/85 lg:text-[1rem]">
+                  {concept.note}
+                </p>
+                <p className="mt-3 flex flex-wrap items-center caption text-ash">
+                  <a
+                    href={concept.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center underline underline-offset-4 transition-colors hover:text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+                  >
+                    Auge=mit · Commons
+                  </a>
+                  <span aria-hidden="true" className="px-2">
+                    ·
+                  </span>
+                  <a
+                    href="https://creativecommons.org/licenses/by-sa/4.0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center underline underline-offset-4 transition-colors hover:text-bone focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+                  >
+                    CC BY-SA 4.0
+                  </a>
+                </p>
               </div>
             </article>
           ))}
@@ -236,7 +290,7 @@ export function Helmets() {
           <span data-counter className="display text-4xl text-orange md:text-5xl">
             01
           </span>
-          <span className="label text-ash">/ {total} studies</span>
+          <span className="label text-ash">/ {total} titles</span>
         </span>
         <div className="relative h-0.5 w-16 bg-bone/20">
           <div data-progress className="absolute inset-0 origin-left bg-orange" />
