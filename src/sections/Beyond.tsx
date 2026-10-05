@@ -41,6 +41,7 @@ export function Beyond() {
             >
               <Media
                 slot={media.beyond}
+                grade="light"
                 sizes="(min-width: 1024px) 50vw, (min-width: 768px) calc(100vw - 5rem), calc(100vw - 2.5rem)"
                 className="size-full"
                 imageClassName="object-cover object-[50%_24%]"

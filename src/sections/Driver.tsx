@@ -75,6 +75,7 @@ export function Driver() {
           <div data-reveal="clip" data-parallax className="aspect-[4/5] overflow-hidden">
             <Media
               slot={media.driver}
+              grade="light"
               sizes="(min-width: 640px) 40vw, calc(100vw - 2.5rem)"
               className="size-full"
               imageClassName="object-[50%_30%]"

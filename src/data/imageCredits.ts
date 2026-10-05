@@ -14,7 +14,7 @@ export type ImageCredit = {
 
 const pending = "source/license pending confirmation";
 const photoChanges =
-  "Original file preserved. Responsive CSS crop (object-fit: cover), container overlays and parallax; Next.js generates resized/compressed delivery variants. No retouching of the original.";
+  "Original file preserved. Responsive CSS crop (object-fit: cover), container overlays and parallax, plus a CSS-only editorial grade applied at display time (slightly reduced saturation, added contrast, navy colour cast, soft vignette, film grain). No watermark or credit has been removed and the stored original is not retouched. Next.js generates resized/compressed delivery variants.";
 
 /** Evidence-based image inventory. An existing local file does not establish permission to publish. */
 export const imageCredits: ImageCredit[] = [
@@ -50,10 +50,10 @@ export const imageCredits: ImageCredit[] = [
       source: "Local file supplied for this project; original source unconfirmed.",
     },
     {
-      src: "/images/on-track/spafrancorchamps2022.jpg",
+      src: "/images/on-track/spa-francorchamps-2022.jpg",
       title: "On Track — Spa-Francorchamps 2022",
       source:
-        "Visible copyright mark: Verstappen.com, Red Bull Content Pool. Original URL, photographer and permission remain unconfirmed.",
+        "Replacement file supplied locally on 5 October 2026 (1200 × 800 JPEG, no visible credit or watermark). It replaces an earlier image that carried a Verstappen.com / Red Bull Content Pool mark. Original source, photographer and license of the replacement are still unconfirmed; replace or clear before publication.",
     },
     {
       src: "/images/on-track/interlagos2024.jpg",

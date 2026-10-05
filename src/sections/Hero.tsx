@@ -139,6 +139,7 @@ export function Hero() {
             <Media
               slot={media.hero}
               priority
+              grade="light"
               sizes="100vw"
               className="size-full"
               imageClassName="object-cover object-[50%_32%] sm:object-[50%_26%] lg:object-[50%_20%] 2xl:object-[50%_18%]"
