@@ -1,0 +1,397 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #050608;
+  --color-night: #070c18;
+  --color-navy: #0b1429;
+  --color-steel: #262b36;
+  --color-ash: #9095a0;
+  --color-bone: #f1eee7;
+  --color-orange: #ff5a00;
+  --color-rust: #b83c00;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swift: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@theme inline {
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* Desktop + motion allowed. Mirrors MQ.cine in src/lib/gsap.ts. */
+@custom-variant cine (@media (min-width: 1024px) and (prefers-reduced-motion: no-preference));
+/* Footer "uncover" effect: needs a viewport tall enough to hold it. Mirrors MQ.reveal. */
+@custom-variant reveal (@media (min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference));
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html.scroll-locked {
+    overflow: hidden;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    overflow-x: clip;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Type system ───────────────────────────────────────────────────────── */
+
+/* Oversized condensed display type. */
+@utility display {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.012em;
+  font-kerning: normal;
+}
+
+/* Wide, technical counterpart used for short titles. */
+@utility wide {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+/* Telemetry-style micro label. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Smallest tier: captions inside frames and under figures. */
+@utility caption {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Running text. */
+@utility copy {
+  font-size: clamp(0.9375rem, 0.82rem + 0.36vw, 1.125rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+
+/* Fluid size scale shared by every section. */
+@utility fs-mega {
+  font-size: clamp(3.75rem, 13.5vw, 16rem);
+}
+@utility fs-title {
+  font-size: clamp(2.5rem, 5.6vw, 6.75rem);
+}
+@utility fs-figure {
+  font-size: clamp(4.5rem, 11.5vw, 13.5rem);
+}
+@utility fs-sub {
+  font-size: clamp(1.125rem, 0.8rem + 1.1vw, 2.125rem);
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--outline, rgb(241 238 231 / 0.45));
+}
+
+/* ── Surfaces ──────────────────────────────────────────────────────────── */
+
+/* Film grain, generated — no image asset. */
+@utility grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Fine scanlines laid over generated artwork. */
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(5 6 8 / 0.35) 0,
+    rgb(5 6 8 / 0.35) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+/* Faint engineering grid, drawn as registration dots rather than rules. */
+@utility grid-lines {
+  background-image: radial-gradient(circle, rgb(241 238 231 / 0.16) 1px, transparent 1.6px);
+  background-size: clamp(3rem, 8.333vw, 7.5rem) clamp(3rem, 8.333vw, 7.5rem);
+}
+
+@layer components {
+  /* Four corner brackets around a frame. */
+  .brackets {
+    --b: 0.875rem;
+    position: absolute;
+    inset: 0.75rem;
+    pointer-events: none;
+    background:
+      linear-gradient(currentColor, currentColor) top left / var(--b) 1px,
+      linear-gradient(currentColor, currentColor) top left / 1px var(--b),
+      linear-gradient(currentColor, currentColor) top right / var(--b) 1px,
+      linear-gradient(currentColor, currentColor) top right / 1px var(--b),
+      linear-gradient(currentColor, currentColor) bottom left / var(--b) 1px,
+      linear-gradient(currentColor, currentColor) bottom left / 1px var(--b),
+      linear-gradient(currentColor, currentColor) bottom right / var(--b) 1px,
+      linear-gradient(currentColor, currentColor) bottom right / 1px var(--b);
+    background-repeat: no-repeat;
+  }
+
+  /* Header indicator: label ticks in when the section changes. */
+  .tick-in {
+    display: inline-block;
+    animation: tick-in 0.7s var(--ease-expo) both;
+  }
+
+  @keyframes tick-in {
+    from {
+      transform: translateY(110%);
+    }
+  }
+
+  /* ── Timeline states ── */
+  .tl-year {
+    color: var(--color-bone);
+    -webkit-text-stroke: 1px transparent;
+    transition:
+      color 0.7s var(--ease-expo),
+      -webkit-text-stroke-color 0.7s var(--ease-expo);
+  }
+
+  .tl-dot {
+    background: var(--color-bone);
+    transition:
+      background-color 0.5s,
+      scale 0.6s var(--ease-expo);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tl-item:not(.is-past) .tl-year {
+      color: transparent;
+      -webkit-text-stroke-color: rgb(241 238 231 / 0.4);
+    }
+
+    .tl-item:not(.is-past) .tl-dot {
+      background: var(--color-steel);
+    }
+
+    .tl-body {
+      transition: opacity 0.7s var(--ease-expo);
+    }
+
+    .tl-item:not(.is-active) .tl-body {
+      opacity: 0.5;
+    }
+
+    .tl-item.is-active .tl-dot {
+      background: var(--color-orange);
+      scale: 1.9;
+    }
+  }
+
+  /* ── Odometer digits ── */
+  .odo-col {
+    transform: translateY(calc(var(--d) * -10%));
+  }
+
+  /* ── Fullscreen menu: CSS-driven so it never depends on animation state. ── */
+  .menu {
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path 0.75s var(--ease-swift),
+      visibility 0s linear 0.75s;
+  }
+
+  .menu[data-open="true"] {
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+    transition:
+      clip-path 0.95s var(--ease-swift),
+      visibility 0s;
+  }
+
+  /* Content drifts down into place behind the wipe. */
+  .menu-inner {
+    transform: translateY(-5%);
+    transition: transform 0.75s var(--ease-swift);
+  }
+
+  .menu[data-open="true"] .menu-inner {
+    transform: translateY(0);
+    transition: transform 1.1s var(--ease-expo);
+  }
+
+  .menu-rise {
+    transform: translateY(110%);
+    transition:
+      transform 0.45s var(--ease-swift),
+      opacity 0.4s;
+  }
+
+  .menu[data-open="true"] .menu-rise {
+    transform: translateY(0);
+    transition:
+      transform 1s var(--ease-expo) calc(0.22s + var(--i, 0) * 0.045s),
+      opacity 0.4s;
+  }
+
+  @media (hover: hover) {
+    .menu-list:hover .menu-link {
+      opacity: 0.32;
+    }
+
+    .menu-list .menu-link:hover {
+      opacity: 1;
+    }
+  }
+
+  .menu-fade {
+    opacity: 0;
+    transition: opacity 0.3s linear;
+  }
+
+  .menu[data-open="true"] .menu-fade {
+    opacity: 1;
+    transition: opacity 0.8s linear 0.55s;
+  }
+
+  .menu-numeral {
+    animation: tick-in 0.8s var(--ease-expo) both;
+  }
+
+  /* ── Scroll cue in the hero ── */
+  .scroll-cue {
+    animation: scroll-cue 2.4s var(--ease-swift) infinite;
+    transform-origin: top;
+  }
+
+  @keyframes scroll-cue {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    50% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    50.01% {
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+  }
+
+  /* Small arrow nudge used by directional hints. */
+  .nudge-x {
+    animation: nudge-x 1.6s var(--ease-swift) infinite;
+  }
+
+  @keyframes nudge-x {
+    50% {
+      transform: translateX(0.4rem);
+    }
+  }
+
+  /* ── Cursor follower (fine pointers only; the native cursor stays) ── */
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    width: 2.25rem;
+    height: 2.25rem;
+    pointer-events: none;
+    visibility: hidden;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid #fff;
+    border-radius: 9999px;
+    transform: scale(0.45);
+    opacity: 0.7;
+    transition:
+      transform 0.5s var(--ease-expo),
+      opacity 0.3s,
+      background-color 0.3s;
+  }
+
+  .cursor[data-state="link"] .cursor-ring {
+    transform: scale(1.25);
+    opacity: 1;
+    background: rgb(255 255 255 / 0.12);
+  }
+
+  .cursor[data-state="wide"] .cursor-ring {
+    transform: scale(1.9);
+    opacity: 0.9;
+  }
+}
