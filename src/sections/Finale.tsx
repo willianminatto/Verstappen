@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { useScroll } from "@/components/layout/ScrollProvider";
 import { Chars } from "@/components/ui/Chars";
-import { Monogram } from "@/components/ui/Monogram";
 import { currentNumber } from "@/data/driver";
 import { finaleSection, site } from "@/data/site";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
@@ -52,7 +52,7 @@ export function Finale() {
       ref={root}
       className="relative reveal:h-svh reveal:[clip-path:inset(0)]"
     >
-      <div className="relative flex flex-col justify-between gap-12 overflow-hidden bg-night px-5 pt-24 pb-6 md:px-10 md:pt-28 md:pb-8 reveal:fixed reveal:inset-x-0 reveal:bottom-0 reveal:h-svh reveal:gap-6 reveal:pt-24">
+      <div className="relative flex flex-col justify-between gap-10 overflow-hidden bg-night px-5 pt-16 pb-6 md:px-10 md:pb-8 lg:pt-28 reveal:fixed reveal:inset-x-0 reveal:bottom-0 reveal:h-svh reveal:gap-6 reveal:pt-24">
         <div
           data-glow
           aria-hidden="true"
@@ -84,7 +84,7 @@ export function Finale() {
           </p>
         </div>
 
-        <p className="relative display text-[clamp(4.5rem,29vw,40rem)] leading-[0.8] reveal:text-[min(27.5vw,30svh)]">
+        <p className="relative display text-[clamp(4.5rem,29vw,40rem)] leading-[0.8] reveal:text-[min(27.5vw,24svh)]">
           <span className="sr-only">{site.closingLine.join(" ")}</span>
           <span data-line className="block">
             <Chars text={first} />
@@ -94,38 +94,51 @@ export function Finale() {
           </span>
         </p>
 
-        <div className="relative grid gap-6 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-6">
-            <Monogram className="h-5 w-auto text-orange" />
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-bone/80">{site.disclaimer}</p>
+        <div className="relative grid gap-x-8 gap-y-6 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-5">
+            <p className="label text-orange">Fan-made experience</p>
+            <p className="mt-3 caption text-ash">Developed by</p>
+            <p className="mt-2 wide fs-sub">Willian Minatto</p>
+            <p className="mt-3 caption text-ash">Max Verstappen fan · Brazil</p>
+            <p className="mt-4 text-sm leading-relaxed text-bone/80">
+              Fan-made by Willian Minatto, a Max Verstappen fan.
+            </p>
           </div>
-          <p className="caption text-ash md:col-span-3">
-            Concept build · v0.2
-            <br />
-            Visuals are generated artwork
-          </p>
-          <div className="md:col-span-3 md:text-right">
+          <div className="lg:col-span-5">
+            <p className="max-w-md text-sm leading-relaxed text-bone/80">{site.disclaimer}</p>
+            <details className="group relative mt-3">
+              <summary className="flex min-h-11 cursor-pointer items-center gap-3 label text-ash hover:text-bone">
+                Disclaimer & rights <span aria-hidden="true">+</span>
+              </summary>
+              <div className="space-y-3 bg-night py-4 text-sm leading-relaxed text-bone/80 lg:absolute lg:inset-x-0 lg:bottom-full lg:max-h-[45svh] lg:overflow-y-auto lg:p-5 lg:shadow-xl">
+                <p>{site.affiliation}</p>
+                <p>{site.rights}</p>
+                <p>
+                  Photographs with pending source or license confirmation are not cleared for
+                  publication. See Image Credits.
+                </p>
+              </div>
+            </details>
+            <Link
+              href="/credits"
+              className="inline-flex min-h-11 items-center label underline underline-offset-4 hover:text-orange"
+            >
+              Image Credits ↗
+            </Link>
+          </div>
+          <div className="lg:col-span-2 lg:text-right">
             <a
               href="#top"
               onClick={(event) => {
                 event.preventDefault();
                 scrollTo(0);
               }}
-              className="group -my-3 inline-flex min-h-11 items-center gap-3 label"
+              className="inline-flex min-h-11 items-center gap-3 label hover:text-orange"
             >
-              <span className="transition-colors duration-300 group-hover:text-orange">
-                Back to start
-              </span>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-                className="size-4 transition-transform duration-500 ease-expo group-hover:-translate-y-1"
-              >
-                <path d="M12 22V3M4 11l8-8 8 8" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+              Back to start ↑
             </a>
           </div>
+          <p className="caption text-ash lg:col-span-12">{site.copyright}</p>
         </div>
       </div>
     </footer>

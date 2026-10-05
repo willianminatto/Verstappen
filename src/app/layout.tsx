@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   title: site.title,
   description: site.description,
   applicationName: site.name,
+  authors: [{ name: "Willian Minatto" }],
+  creator: "Willian Minatto",
   openGraph: {
     title: site.title,
     description: site.description,
