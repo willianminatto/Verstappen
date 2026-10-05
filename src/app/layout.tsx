@@ -31,8 +31,6 @@ export const metadata: Metadata = {
     description: site.description,
     type: "website",
   },
-  // Concept project: keep it out of search results.
-  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
