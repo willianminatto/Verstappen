@@ -5,7 +5,7 @@ import { Odometer } from "@/components/ui/Odometer";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { headlineStat, stats, statsMeta } from "@/data/stats";
 import type { Stat } from "@/data/stats";
-import { gsap, MQ, useGSAP } from "@/lib/gsap";
+import { gsap, MQ, ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
@@ -37,23 +37,76 @@ export function Numbers() {
     () => {
       const mm = gsap.matchMedia(root);
 
-      // Digits roll up to their value the first time a figure enters.
-      mm.add(MQ.motion, () => {
-        gsap.utils.toArray<HTMLElement>("[data-odo-col]", root.current).forEach((column) => {
-          const siblings = Array.from(column.parentElement?.children ?? []);
-          const place = siblings.length - 1 - siblings.indexOf(column);
-
-          gsap.fromTo(
-            column,
-            { y: 0, yPercent: 0 },
-            {
-              yPercent: Number(column.dataset.digit) * -10,
-              duration: 1.9 + place * 0.25,
-              ease: "expo.out",
-              scrollTrigger: { trigger: column.parentElement, start: "top 88%", once: true },
-            },
-          );
+      const figures = gsap.utils.toArray<HTMLElement>("[data-count]", root.current);
+      const showFinal = () =>
+        figures.forEach((figure) => {
+          figure.textContent = figure.dataset.count ?? "0";
         });
+      mm.add(MQ.reduce, showFinal);
+      mm.add(MQ.motion, () => {
+        const counters = figures.map((figure) => ({
+          value: 0,
+          final: Number(figure.dataset.count),
+          figure,
+        }));
+        let armed = true;
+        let timeline: gsap.core.Timeline | undefined;
+        const reset = () => {
+          counters.forEach((counter) => {
+            counter.value = 0;
+            counter.figure.textContent = "0";
+          });
+        };
+        const play = () => {
+          const bounds = root.current?.getBoundingClientRect();
+          // A fast scroll can skip both boundaries in one update.
+          if (!armed || !bounds || bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+          armed = false;
+          timeline?.kill();
+          reset();
+          timeline = gsap.timeline();
+          counters.forEach((counter, index) => {
+            timeline!.to(
+              counter,
+              {
+                value: counter.final,
+                duration: 1.25,
+                ease: "power2.out",
+                onUpdate: () => {
+                  counter.figure.textContent = String(Math.round(counter.value));
+                },
+                onComplete: () => {
+                  counter.figure.textContent = String(counter.final);
+                },
+              },
+              index * 0.04,
+            );
+          });
+        };
+        const rearm = () => {
+          timeline?.kill();
+          timeline = undefined;
+          showFinal();
+          armed = true;
+        };
+        reset();
+        // Leaving the significant-entry band is insufficient: the section
+        // must leave the entire viewport before another count is allowed.
+        ScrollTrigger.create({
+          trigger: root.current,
+          start: "top bottom",
+          end: "bottom top",
+          onLeave: rearm,
+          onLeaveBack: rearm,
+        });
+        ScrollTrigger.create({
+          trigger: root.current,
+          start: "top 65%",
+          end: "bottom 35%",
+          onEnter: play,
+          onEnterBack: play,
+        });
+        return () => timeline?.kill();
       });
     },
     { scope: root },
@@ -68,7 +121,7 @@ export function Numbers() {
         ref={root}
         data-expand
         aria-labelledby="numbers-title"
-        className="relative overflow-hidden bg-ink px-5 py-24 md:px-10 md:py-36"
+        className="relative overflow-hidden bg-ink px-5 py-16 md:px-10 lg:py-36"
       >
         <div
           aria-hidden="true"
@@ -85,7 +138,7 @@ export function Numbers() {
               lines={["By the", "Numbers"]}
               titleClassName="fs-title"
             />
-            <p className="text-right caption text-ash">
+            <p className="max-w-[9rem] text-right caption text-ash lg:max-w-none">
               Career data
               <br />
               {statsMeta.source}
@@ -94,7 +147,7 @@ export function Numbers() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-x-10 gap-y-16 md:mt-20 lg:grid-cols-12">
+          <div className="mt-10 grid gap-x-10 gap-y-10 lg:mt-20 lg:grid-cols-12">
             <dl className="lg:col-span-5">
               <div className="flex flex-col-reverse">
                 <dt className="mt-6 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
@@ -104,19 +157,19 @@ export function Numbers() {
                 <dd className="-ml-[0.05em]">
                   <Odometer
                     value={headlineStat.value}
-                    className="display text-[clamp(17rem,50vw,48rem)] leading-[0.74] text-orange"
+                    className="display text-[clamp(12rem,42vw,24rem)] leading-[0.74] text-orange lg:text-[clamp(17rem,50vw,48rem)]"
                   />
                 </dd>
               </div>
             </dl>
 
             <div className="grid grid-cols-2 gap-x-5 md:gap-x-10 lg:col-span-6 lg:col-start-7">
-              <dl className="space-y-12 md:space-y-24">
+              <dl className="space-y-8 lg:space-y-24">
                 {left.map((stat, i) => (
                   <StatBlock key={stat.key} stat={stat} index={i * 2 + 1} />
                 ))}
               </dl>
-              <dl className="mt-[clamp(4rem,11vw,12rem)] space-y-12 md:space-y-24">
+              <dl className="mt-6 space-y-8 lg:mt-[clamp(4rem,11vw,12rem)] lg:space-y-24">
                 {right.map((stat, i) => (
                   <StatBlock key={stat.key} stat={stat} index={i * 2 + 2} />
                 ))}
