@@ -56,7 +56,11 @@ export function Hero() {
 
         const unsubscribe = onIntroReady(() => intro.play());
 
-        // Exit: the hero holds its place while the next section covers it.
+        return unsubscribe;
+      });
+
+      // Desktop exit: the next section covers the pinned hero.
+      mm.add(MQ.cine, () => {
         gsap
           .timeline({
             defaults: { ease: "none" },
@@ -76,8 +80,22 @@ export function Hero() {
           .to("[data-layer='type']", { yPercent: -22 }, 0)
           .to("[data-hero-fade]", { opacity: 0, duration: 0.3 }, 0)
           .to("[data-hero-shade]", { opacity: 0.82 }, 0);
+      });
 
-        return unsubscribe;
+      // Mobile stays in normal flow: the photo and title leave together,
+      // without the pinned shrink/fade creating a dark transition band.
+      mm.add(MQ.compact, () => {
+        gsap.to("[data-hero-bg]", {
+          scale: 1.04,
+          yPercent: 3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
       });
 
       // Pointer parallax: each layer leans by its own depth.
@@ -112,13 +130,23 @@ export function Hero() {
       id="top"
       ref={root}
       aria-label="Introduction"
-      className="relative h-svh min-h-[36rem] overflow-hidden bg-ink"
+      className="relative h-svh min-h-0 overflow-hidden bg-ink lg:min-h-[34rem]"
     >
       <div data-hero-stage className="absolute inset-0 flex flex-col justify-between">
         {/* Layer 1 — plate */}
         <div data-layer="plate" data-depth="-10" className="absolute -inset-[3%]">
           <div data-hero-bg className="size-full">
-            <Media slot={media.hero} priority className="size-full" />
+            <Media
+              slot={media.hero}
+              priority
+              sizes="100vw"
+              className="size-full"
+              imageClassName="object-cover object-[50%_32%] sm:object-[50%_26%] lg:object-[50%_20%] 2xl:object-[50%_18%]"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/20 via-transparent to-ink/30"
+            />
           </div>
         </div>
 
@@ -156,7 +184,7 @@ export function Hero() {
           data-layer="numeral"
           data-depth="34"
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-[3vw] flex items-center md:right-[7vw]"
+          className="pointer-events-none absolute inset-y-0 right-[3vw] flex items-center max-lg:opacity-35 md:right-[7vw]"
         >
           <span data-hero-numeral className="block">
             <span className="block -skew-x-[9deg] display text-[min(90svh,118vw)] leading-[0.8] text-orange">
@@ -167,7 +195,7 @@ export function Hero() {
 
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink via-ink/45 to-transparent"
+          className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-ink/90 via-ink/20 to-transparent lg:h-2/3 lg:from-ink lg:via-ink/45"
         />
 
         {/* Top microdata */}

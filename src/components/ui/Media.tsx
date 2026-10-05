@@ -9,13 +9,20 @@ type MediaProps = {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  imageClassName?: string;
 };
 
 /**
  * Renders a slot from the media manifest: `next/image` when a final asset is
  * set, otherwise the generated art plate. The parent controls the frame size.
  */
-export function Media({ slot, sizes = "100vw", priority = false, className }: MediaProps) {
+export function Media({
+  slot,
+  sizes = "100vw",
+  priority = false,
+  className,
+  imageClassName,
+}: MediaProps) {
   if (slot.src) {
     return (
       <div className={cn("relative overflow-hidden bg-ink", className)}>
@@ -25,7 +32,8 @@ export function Media({ slot, sizes = "100vw", priority = false, className }: Me
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover"
+          loading={priority ? undefined : "lazy"}
+          className={cn("object-cover", imageClassName)}
         />
       </div>
     );
