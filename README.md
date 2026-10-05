@@ -3,9 +3,9 @@
 An experimental, editorial single-page website dedicated to Max Verstappen: oversized type, telemetry-inspired details and scroll-driven motion.
 
 > **Unofficial fan-made concept. Not affiliated with Max Verstappen, Red Bull Racing or Formula 1.**
-> No official logos, photography or licensed assets are used. All visuals are generated placeholders.
+> Created by Willian Minatto for portfolio and educational purposes. Licensed helmet images are attributed in `IMAGE_CREDITS.md` and `/credits`. The six local photographs have source/license pending confirmation and are not cleared for publication.
 
-**Status:** work in progress — second visual pass (v0.2).
+**Status:** visual integration in progress; publication remains pending confirmation of photograph sources and licenses.
 
 ## Stack
 
@@ -50,4 +50,4 @@ Everything editable lives in `src/data`:
 - `stats.ts` — career figures. They change every race weekend: update `value` and `asOf` together.
 - `driver.ts` — driver facts and racing numbers; the number marked `current` drives the hero numeral.
 - `timeline.ts`, `onTrack.ts`, `beyond.ts`, `legacy.ts`, `helmets.ts` — section content.
-- `media.ts` — every image slot. Set `src` to a file in `public/media` to replace a generated art plate with a real image (rendered through `next/image`). Only use assets you have the rights to.
+- `media.ts` — every image slot. Set `src` to a file in `public/images` to replace a generated art plate with a real image (rendered through `next/image`). Only use assets you have the rights to.
