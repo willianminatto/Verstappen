@@ -181,7 +181,7 @@ export function Legacy() {
       id="legacy"
       ref={root}
       aria-labelledby="legacy-title"
-      className="relative z-10 overflow-hidden bg-[linear-gradient(to_bottom,var(--color-navy),var(--color-ink)_22rem)] px-5 py-28 md:px-10 cine:h-screen cine:py-0"
+      className="relative z-10 overflow-hidden bg-[linear-gradient(to_bottom,var(--color-navy),var(--color-ink)_22rem)] px-5 py-16 md:px-10 lg:py-28 cine:h-screen cine:py-0"
     >
       <div
         data-glow
@@ -232,9 +232,9 @@ export function Legacy() {
         </div>
 
         {/* Plain list: the layout on mobile / reduced motion, and what assistive tech reads */}
-        <ol className="relative mt-12 cine:sr-only">
+        <ol className="relative mt-8 lg:mt-12 cine:sr-only">
           {pillars.map((pillar) => (
-            <li key={pillar.word} className="py-7">
+            <li key={pillar.word} className="py-5 lg:py-7">
               <p className="overflow-hidden pt-[0.04em]">
                 <span data-word className="block display text-[clamp(3rem,14.6vw,19rem)]">
                   {pillar.word}
