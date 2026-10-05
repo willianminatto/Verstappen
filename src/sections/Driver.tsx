@@ -46,7 +46,7 @@ export function Driver() {
       id="driver"
       ref={root}
       aria-labelledby="driver-title"
-      className="relative z-10 bg-ink px-5 pt-20 pb-44 md:px-10 md:pt-32 md:pb-72"
+      className="relative z-10 bg-ink px-5 pt-16 pb-20 md:px-10 lg:pt-32 lg:pb-72"
     >
       <div className="flex items-start justify-between">
         <SectionLabel index="01" label="The Driver" />
@@ -69,14 +69,15 @@ export function Driver() {
         ))}
       </h2>
 
-      <div className="mt-24 grid gap-x-10 gap-y-16 md:mt-40 lg:grid-cols-12">
+      <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-12 lg:mt-40 lg:gap-x-10 lg:gap-y-16">
         {/* Portrait, with the current number breaking out of its frame */}
-        <figure className="relative self-start lg:col-span-5 lg:mt-24">
+        <figure className="relative self-start sm:col-span-5 lg:mt-24">
           <div data-reveal="clip" data-parallax className="aspect-[4/5] overflow-hidden">
             <Media
               slot={media.driver}
-              sizes="(min-width: 1024px) 40vw, 100vw"
+              sizes="(min-width: 640px) 40vw, calc(100vw - 2.5rem)"
               className="size-full"
+              imageClassName="object-[50%_30%]"
             />
           </div>
           <span className="brackets text-bone/60" aria-hidden="true" />
@@ -93,7 +94,7 @@ export function Driver() {
           </figcaption>
         </figure>
 
-        <div className="lg:col-span-6 lg:col-start-7">
+        <div className="sm:col-span-7 lg:col-span-6 lg:col-start-7">
           {name ? (
             <div>
               <p className="label text-ash">{name.label}</p>
@@ -109,7 +110,7 @@ export function Driver() {
 
           <dl className="mt-12 grid grid-cols-2 gap-x-6 md:mt-16 md:gap-x-10">
             {facts.map((fact) => (
-              <div key={fact.label} className="relative pb-10 md:pb-14">
+              <div key={fact.label} className="relative pb-10 lg:pb-14">
                 <dt className="label text-ash">{fact.label}</dt>
                 <dd data-reveal="up" className="mt-3">
                   <span className="block wide fs-sub">{fact.value}</span>

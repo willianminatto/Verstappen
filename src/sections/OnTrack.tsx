@@ -34,22 +34,22 @@ export function OnTrack() {
     <section
       id="on-track"
       aria-labelledby="on-track-title"
-      className="relative z-10 flow-root bg-night pb-28 md:pb-44"
+      className="relative z-10 flow-root bg-night pb-16 lg:pb-44"
     >
       {/* Lead frame: opens to full bleed as the section arrives. */}
-      <div data-expand className="relative h-[62svh] min-h-[22rem] overflow-hidden md:h-[88svh]">
+      <div data-expand className="relative h-[42svh] min-h-[18rem] overflow-hidden lg:h-[88svh]">
         <div data-parallax className="absolute inset-0">
           <Media slot={media.onTrackLead} className="size-full" />
         </div>
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-night to-transparent"
+          className="absolute inset-0 bg-gradient-to-b from-ink/55 via-transparent to-night"
         />
         <span className="brackets text-bone/60" aria-hidden="true" />
         <p className="absolute top-8 left-8 caption md:top-10 md:left-12">
           Frame 00
           <br />
-          <span className="text-bone/60">Night running</span>
+          <span className="text-bone/60">On track</span>
         </p>
         <p className="absolute top-8 right-8 text-right caption md:top-10 md:right-12">
           {total} drives
@@ -69,7 +69,7 @@ export function OnTrack() {
           crossing
         />
 
-        <div className="mt-24 space-y-32 md:mt-44 md:space-y-64">
+        <div className="mt-16 space-y-20 lg:mt-44 lg:space-y-64">
           {drives.map((drive, i) => {
             const flip = i % 2 === 1;
 
@@ -99,14 +99,28 @@ export function OnTrack() {
                   <div
                     data-reveal="clip"
                     data-parallax
-                    className="aspect-[4/5] overflow-hidden sm:aspect-[16/10]"
+                    className="aspect-[16/9] overflow-hidden lg:aspect-[16/10]"
                   >
                     <Media
                       slot={media[drive.media]}
-                      sizes="(min-width: 1024px) 66vw, 100vw"
+                      sizes="(min-width: 1024px) 66vw, calc(100vw - 2.5rem)"
                       className="size-full"
+                      imageClassName="object-center"
                     />
                   </div>
+                  <div
+                    aria-hidden="true"
+                    className={cn(
+                      "pointer-events-none absolute inset-0 hidden lg:block",
+                      flip
+                        ? "bg-gradient-to-r from-night/90 via-transparent to-transparent"
+                        : "bg-gradient-to-l from-night/90 via-transparent to-transparent",
+                    )}
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/90 to-transparent"
+                  />
                   <span className="brackets text-bone/60" aria-hidden="true" />
                   <p className="absolute bottom-6 left-6 caption md:bottom-8 md:left-8">
                     {pad(i + 1)} / {total}
@@ -146,7 +160,7 @@ export function OnTrack() {
 
                   <p className="mt-6 max-w-sm copy text-ash">{drive.body}</p>
 
-                  <dl data-reveal="up" className="mt-10 grid max-w-md grid-cols-3 gap-4">
+                  <dl data-reveal="up" className="mt-6 grid max-w-md grid-cols-3 gap-4 lg:mt-10">
                     {drive.details.map((detail) => (
                       <div key={detail.label}>
                         <dt className="caption text-ash">{detail.label}</dt>

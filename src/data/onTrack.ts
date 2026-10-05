@@ -36,7 +36,7 @@ export const drives: Drive[] = [
     circuit: "Zandvoort",
     coordinates: "52.39° N / 4.54° E",
     figure: ["P1"],
-    figureLabel: "Pole to flag at home",
+    figureLabel: "A home victory from pole",
     body: "The race returns to the dunes after 36 years, in front of a wall of orange. Pole position, then the win.",
     details: [
       { label: "Grid", value: "P1" },
