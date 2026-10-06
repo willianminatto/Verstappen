@@ -3,9 +3,9 @@
 An experimental, editorial single-page website dedicated to Max Verstappen: oversized type, telemetry-inspired details and scroll-driven motion.
 
 > **Unofficial fan-made concept. Not affiliated with Max Verstappen, Red Bull Racing or Formula 1.**
-> Created by Willian Minatto for portfolio and educational purposes. Licensed helmet images are attributed in `IMAGE_CREDITS.md` and `/credits`. The six local photographs have source/license pending confirmation and are not cleared for publication.
+> Created by Willian Minatto for portfolio and educational purposes. The four helmet images are licensed (CC BY-SA 4.0) and attributed. The eight photographs are documented in `IMAGE_CREDITS.md` and on `/credits` with the page each was found on, where known; their authors and licenses are still partly unconfirmed, and no permission has been obtained for them.
 
-**Status:** visual integration in progress; publication remains pending confirmation of photograph sources and licenses.
+**Status:** published at <https://verstappen-fan-concept.vercel.app>. Photograph authors and licenses remain to be confirmed.
 
 ## Stack
 

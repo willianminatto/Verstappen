@@ -34,9 +34,11 @@ export default function CreditsPage() {
           remains with the respective authors and licensors.
         </p>
         <p className="mt-6 max-w-2xl border-l-2 border-orange pl-5 copy text-bone">
-          {imageCredits.filter((credit) => credit.pending).length} photographs are marked
-          “source/license pending confirmation”. Their original source and permission must be
-          confirmed before publication; they are not cleared for public release.
+          {imageCredits.filter((credit) => credit.pending).length} photographs are listed below.
+          Where the page a picture was found on has been identified, it is linked. That is not the
+          same as an author or a license: where those are not confirmed they are marked as pending,
+          and no permission has been obtained. They remain the property of their respective rights
+          holders.
         </p>
       </header>
       <div className="mt-16 grid gap-x-12 gap-y-12 lg:grid-cols-2">
@@ -44,7 +46,11 @@ export default function CreditsPage() {
           <article key={credit.src} className="border-t border-bone/20 pt-6">
             <p className="label text-orange">
               {String(index + 1).padStart(2, "0")} /{" "}
-              {credit.pending ? "Confirmation pending" : "License documented"}
+              {credit.pending
+                ? credit.sourceUrl
+                  ? "Source page identified · license pending"
+                  : "Source and license pending"
+                : "License documented"}
             </p>
             <div className="mt-5 grid gap-6 sm:grid-cols-[9rem_1fr]">
               <div className="relative aspect-[4/3] w-36 bg-bone">
@@ -62,6 +68,10 @@ export default function CreditsPage() {
                 <p className="mt-3 caption break-all text-ash">public{credit.src}</p>
                 <dl className="mt-5 space-y-4 text-sm leading-relaxed">
                   <div>
+                    <dt className="label text-ash">Used in</dt>
+                    <dd className="mt-1">{credit.usage}</dd>
+                  </div>
+                  <div>
                     <dt className="label text-ash">Author / photographer</dt>
                     <dd className="mt-1">{credit.author}</dd>
                   </div>
@@ -77,6 +87,12 @@ export default function CreditsPage() {
                     <dt className="label text-ash">Display / alterations</dt>
                     <dd className="mt-1 text-bone/80">{credit.changes}</dd>
                   </div>
+                  {credit.notes ? (
+                    <div>
+                      <dt className="label text-ash">Notes</dt>
+                      <dd className="mt-1 text-bone/80">{credit.notes}</dd>
+                    </div>
+                  ) : null}
                 </dl>
                 <div className="mt-4 flex flex-wrap gap-x-6">
                   {credit.sourceUrl ? (
@@ -86,10 +102,10 @@ export default function CreditsPage() {
                       rel="noopener noreferrer"
                       className="inline-flex min-h-11 items-center label underline underline-offset-4 hover:text-orange"
                     >
-                      Original file ↗
+                      {credit.sourceUrlLabel ?? "Source"} ↗
                     </a>
                   ) : (
-                    <p className="py-3 caption text-ash">Original URL pending confirmation</p>
+                    <p className="py-3 caption text-ash">Source page pending confirmation</p>
                   )}
                   {credit.licenseUrl ? (
                     <a

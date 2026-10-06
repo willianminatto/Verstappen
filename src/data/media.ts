@@ -39,7 +39,7 @@ export const media = {
   },
   onTrackLead: {
     src: "/images/on-track/on-track-intro.jpg",
-    alt: "A Red Bull Racing car and a Mercedes racing side by side on track",
+    alt: "Max Verstappen's Red Bull and Lewis Hamilton's Mercedes in contact on track, with debris in the air",
     art: "apex",
     tone: "blue",
     seed: 31,
